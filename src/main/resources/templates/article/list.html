@@ -1,6 +1,6 @@
 <h1>리스트</h1>
 
-<ul>
+<ul th:if="${articles.size} >= 2">
     <li th:text="${articles[0].title}"></li>
     <li th:text="${articles[1].title}"></li>
     <li></li>
