@@ -51,6 +51,11 @@ public class ArticleController {
         return rs;
     }
 
+    @GetMapping("/article/list")
+    String showList() {
+        return "article/list";
+    }
+
     @GetMapping("/article/getLastArticle")
     @ResponseBody
     Article getLastArticle() {
