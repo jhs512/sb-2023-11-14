@@ -45,6 +45,16 @@ public class ArticleController {
             model.addAttribute("loginedMember", loginedMember);
         }
 
+        long fromSessionLoginedMemberId = 0;
+
+        if (req.getSession().getAttribute("loginedMemberId") != null)
+            fromSessionLoginedMemberId = (long) req.getSession().getAttribute("loginedMemberId");
+
+        if (fromSessionLoginedMemberId > 0) {
+            Member loginedMember = memberService.findById(fromSessionLoginedMemberId).get();
+            model.addAttribute("fromSessionLoginedMember", loginedMember);
+        }
+
         List<Article> articles = articleService.findAll();
 
         model.addAttribute("articles", articles);
