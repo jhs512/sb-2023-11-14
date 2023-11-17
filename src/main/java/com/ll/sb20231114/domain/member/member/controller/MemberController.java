@@ -4,7 +4,9 @@ import com.ll.sb20231114.domain.article.article.entity.Member;
 import com.ll.sb20231114.domain.member.member.service.MemberService;
 import com.ll.sb20231114.global.rq.Rq;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -34,7 +36,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/login")
-    String login(@Valid LoginForm loginForm, HttpServletResponse response) {
+    String login(@Valid LoginForm loginForm, HttpServletRequest req, HttpServletResponse response) {
         Member member = memberService.findByUsername(loginForm.username).get();
 
         if (!member.getPassword().equals(loginForm.password)) {
@@ -44,6 +46,9 @@ public class MemberController {
         Cookie cookie = new Cookie("loginedMemberId", member.getId() + "");
         cookie.setPath("/");
         response.addCookie(cookie);
+
+        HttpSession session = req.getSession();
+        session.setAttribute("loginedMemberId", member.getId());
 
         return rq.redirect("/article/list", "로그인이 완료되었습니다.");
     }
