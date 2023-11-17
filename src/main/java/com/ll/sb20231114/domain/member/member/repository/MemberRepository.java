@@ -37,6 +37,12 @@ public class MemberRepository {
                 .findFirst();
     }
 
+    public Optional<Member> findByUsername(String username) {
+        return members.stream()
+                .filter(member -> member.getUsername().equals(username))
+                .findFirst();
+    }
+
     public void delete(long id) {
         members.removeIf(member -> member.getId() == id);
     }
