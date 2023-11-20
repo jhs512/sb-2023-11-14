@@ -1,6 +1,6 @@
 package com.ll.sb20231114.global.rq;
 
-import com.ll.sb20231114.domain.article.article.entity.Member;
+import com.ll.sb20231114.domain.member.member.entity.Member;
 import com.ll.sb20231114.domain.member.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
