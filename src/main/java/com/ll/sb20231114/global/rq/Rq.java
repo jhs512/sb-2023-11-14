@@ -55,7 +55,7 @@ public class Rq {
         return member;
     }
 
-    public void setSessionAttr(String name, long value) {
+    public void setSessionAttr(String name, Object value) {
         req.getSession().setAttribute(name, value);
     }
 
