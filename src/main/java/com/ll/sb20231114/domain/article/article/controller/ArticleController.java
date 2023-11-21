@@ -98,7 +98,13 @@ public class ArticleController {
 
     @GetMapping("/article/delete/{id}")
     String delete(@PathVariable long id) {
-        articleService.delete(id);
+        Article article = articleService.findById(id).get();
+
+        if (article == null) throw new RuntimeException("존재하지 않는 게시물입니다.");
+
+        if (!articleService.canDelete(rq.getMember(), article)) throw new RuntimeException("삭제권한이 없습니다.");
+
+        articleService.delete(article);
 
         return rq.redirect("/article/list", "%d번 게시물 삭제되었습니다.".formatted(id));
     }
