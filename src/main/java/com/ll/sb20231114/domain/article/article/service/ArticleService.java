@@ -39,4 +39,8 @@ public class ArticleService {
         article.setTitle(title);
         article.setBody(body);
     }
+
+    public boolean canModify(Member actor, Article article) {
+        return article.getAuthor().equals(actor);
+    }
 }
