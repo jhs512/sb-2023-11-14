@@ -66,8 +66,6 @@ public class ArticleController {
     String showModify(Model model, @PathVariable long id) {
         Article article = articleService.findById(id).get();
 
-        if (article == null) throw new RuntimeException("존재하지 않는 게시물입니다.");
-
         if (!articleService.canModify(rq.getMember(), article)) throw new RuntimeException("수정권한이 없습니다.");
 
         model.addAttribute("article", article);
@@ -87,8 +85,6 @@ public class ArticleController {
     String modify(@PathVariable long id, @Valid ModifyForm modifyForm) {
         Article article = articleService.findById(id).get();
 
-        if (article == null) throw new RuntimeException("존재하지 않는 게시물입니다.");
-
         if (!articleService.canModify(rq.getMember(), article)) throw new RuntimeException("수정권한이 없습니다.");
 
         articleService.modify(article, modifyForm.title, modifyForm.body);
@@ -99,8 +95,6 @@ public class ArticleController {
     @GetMapping("/article/delete/{id}")
     String delete(@PathVariable long id) {
         Article article = articleService.findById(id).get();
-
-        if (article == null) throw new RuntimeException("존재하지 않는 게시물입니다.");
 
         if (!articleService.canDelete(rq.getMember(), article)) throw new RuntimeException("삭제권한이 없습니다.");
 
