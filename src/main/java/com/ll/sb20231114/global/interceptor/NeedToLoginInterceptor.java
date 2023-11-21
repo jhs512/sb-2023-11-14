@@ -7,20 +7,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
-public class NeedToAdminInterceptor implements HandlerInterceptor {
+public class NeedToLoginInterceptor implements HandlerInterceptor {
     private final Rq rq;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        System.out.println("NeedToAdminInterceptor.preHandle 실행됨");
-        List<String> authorities = rq.getSessionAttr("authorities");
-
-        if (!authorities.contains("ROLE_ADMIN")) {
-            throw new RuntimeException("관리자만 이용할 수 있는 페이지 입니다.");
+        System.out.println("NeedToLoginInterceptor.preHandle 실행됨");
+        if (!rq.isLogined()) {
+            throw new RuntimeException("로그인 후 이용해주세요.");
         }
 
         return true;
