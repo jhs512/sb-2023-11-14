@@ -127,7 +127,7 @@ public class ArticleControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(ArticleController.class))
                 .andExpect(handler().methodName("write"))
-                .andExpect(redirectedUrlPattern("/article/list?msg=**"));
+                .andExpect(redirectedUrlPattern("/?msg=**"));
 
         Article article = articleService.findLatest().get();
 
@@ -198,7 +198,7 @@ public class ArticleControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(ArticleController.class))
                 .andExpect(handler().methodName("modify"))
-                .andExpect(redirectedUrlPattern("/article/list?msg=**"));
+                .andExpect(redirectedUrlPattern("/?msg=**"));
 
         Article article = articleService.findById(1L).get();
 
@@ -223,7 +223,7 @@ public class ArticleControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(handler().handlerType(ArticleController.class))
                 .andExpect(handler().methodName("delete"))
-                .andExpect(redirectedUrlPattern("/article/list?msg=**"));
+                .andExpect(redirectedUrlPattern("/?msg=**"));
 
         Optional<Article> optionalArticle = articleService.findById(1L);
 
