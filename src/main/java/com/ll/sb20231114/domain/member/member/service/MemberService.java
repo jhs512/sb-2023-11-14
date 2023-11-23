@@ -46,4 +46,8 @@ public class MemberService {
         member.setUsername(username);
         member.setPassword(password);
     }
+
+    public Optional<Member> findLatest() {
+        return memberRepository.findLatest();
+    }
 }

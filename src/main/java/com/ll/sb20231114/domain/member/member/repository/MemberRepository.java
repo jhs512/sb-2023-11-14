@@ -42,4 +42,10 @@ public class MemberRepository {
     public void delete(long id) {
         members.removeIf(member -> member.getId() == id);
     }
+
+    public Optional<Member> findLatest() {
+        return Optional.ofNullable(
+                members.isEmpty() ? null : members.getLast()
+        );
+    }
 }
