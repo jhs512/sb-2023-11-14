@@ -40,7 +40,7 @@ public class Rq {
 
     public String redirect(String path, String msg) {
         msg = URLEncoder.encode(msg, StandardCharsets.UTF_8);
-        msg += ";ttl=" + new Date().getTime();
+        msg += ";ttl=" + (new Date().getTime() + 1000 * 5);
 
         return "redirect:" + path + "?msg=" + msg;
     }
