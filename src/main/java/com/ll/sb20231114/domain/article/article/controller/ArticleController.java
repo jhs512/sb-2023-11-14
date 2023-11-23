@@ -98,7 +98,7 @@ public class ArticleController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     String delete(@PathVariable long id) {
         Article article = articleService.findById(id).get();
 
