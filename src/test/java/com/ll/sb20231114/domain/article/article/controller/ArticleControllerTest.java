@@ -12,6 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -205,6 +207,27 @@ public class ArticleControllerTest {
         assertThat(article.getBody()).isEqualTo("내용 new");
     }
 
-    // PUT /article/modify/{id}
-    // DELETE /article/delete/{id}
+    @Test
+    @DisplayName("게시물 삭제")
+    @WithUserDetails("admin")
+    void t8() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(
+                        delete("/article/delete/1")
+                                .with(csrf())
+                )
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(status().is3xxRedirection())
+                .andExpect(handler().handlerType(ArticleController.class))
+                .andExpect(handler().methodName("delete"))
+                .andExpect(redirectedUrlPattern("/article/list?msg=**"));
+
+        Optional<Article> optionalArticle = articleService.findById(1L);
+
+        assertThat(optionalArticle.isEmpty()).isEqualTo(true);
+    }
 }
