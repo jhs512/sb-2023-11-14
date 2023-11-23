@@ -17,8 +17,8 @@ public class HomeController {
     private final Rq rq;
 
     @GetMapping("/")
-    public String goToArticleList() {
-        return "redirect:/article/list";
+    public String goToArticleList(String msg) {
+        return rq.redirect("/article/list", msg);
     }
 
     @GetMapping("/home/session")
