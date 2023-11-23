@@ -40,8 +40,13 @@ public class Rq {
 
     public String redirect(String path, String msg) {
         boolean containsTtl = msg.contains(";ttl=");
+
+        if (containsTtl) {
+            msg = msg.split(";ttl=", 2)[0];
+        }
+
         msg = URLEncoder.encode(msg, StandardCharsets.UTF_8);
-        if (!containsTtl) msg += ";ttl=" + (new Date().getTime() + 1000 * 5);
+        msg += ";ttl=" + (new Date().getTime() + 1000 * 5);
 
         return "redirect:" + path + "?msg=" + msg;
     }
