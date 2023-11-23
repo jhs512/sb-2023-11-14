@@ -51,4 +51,21 @@ public class AdmHomeControllerTest {
                 .andExpect(handler().methodName("showMain"))
                 .andExpect(view().name("home/home/adm/main"));
     }
+
+    @Test
+    @DisplayName("/adm/home/about")
+    @WithUserDetails("admin")
+    void t3() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(get("/adm/home/about"))
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(handler().handlerType(AdmHomeController.class))
+                .andExpect(handler().methodName("showAbout"))
+                .andExpect(view().name("home/home/adm/about"));
+    }
 }
