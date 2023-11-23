@@ -140,7 +140,6 @@ public class ArticleControllerTest {
     @DisplayName("작성자가 아니라면 수정폼을 볼 수 없다.")
     @WithUserDetails("user1")
     void t5() throws Exception {
-        // WHEN
         assertThrows(Exception.class, () -> {
             ResultActions resultActions = mvc
                     .perform(get("/article/modify/1"))
