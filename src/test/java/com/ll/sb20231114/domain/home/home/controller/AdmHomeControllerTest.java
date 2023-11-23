@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,5 +33,22 @@ public class AdmHomeControllerTest {
         // THEN
         resultActions
                 .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    @DisplayName("관리자라면 접속할 수 있다.")
+    @WithUserDetails("admin")
+    void t2() throws Exception {
+        // WHEN
+        ResultActions resultActions = mvc
+                .perform(get("/adm"))
+                .andDo(print());
+
+        // THEN
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(handler().handlerType(AdmHomeController.class))
+                .andExpect(handler().methodName("showMain"))
+                .andExpect(view().name("home/home/adm/main"));
     }
 }
