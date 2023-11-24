@@ -46,7 +46,7 @@ public class MemberController {
         RsData<Member> joinRs = memberService.join(joinForm.username, joinForm.password);
 
         if (joinRs.isFail())
-            return rq.historyBack(joinRs.getMsg());
+            return rq.historyBack(joinRs);
 
         return rq.redirect("/member/login", joinRs);
     }
