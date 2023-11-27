@@ -11,4 +11,5 @@ public class Attr {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    private String name;
 }
