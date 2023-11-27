@@ -5,7 +5,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +21,8 @@ public class AttrRepositoryTest {
 
     @DisplayName("attr 저장")
     @Test
+    @Transactional
+    @Rollback
     void t1() {
         Attr attr = Attr.builder()
                 .createDate(LocalDateTime.now())
@@ -26,5 +30,24 @@ public class AttrRepositoryTest {
                 .build();
         arrtRepository.save(attr);
         assertThat(attr.getId()).isGreaterThan(0L);
+    }
+
+    @DisplayName("attr 저장, 한번 더")
+    @Test
+    @Transactional
+    @Rollback
+    void t2() {
+        Attr attr = Attr.builder()
+                .createDate(LocalDateTime.now())
+                .name("age")
+                .build();
+        arrtRepository.save(attr);
+        assertThat(attr.getId()).isGreaterThan(0L);
+    }
+
+    @DisplayName("select count(*) from attr")
+    @Test
+    void t3() {
+        assertThat(arrtRepository.count()).isEqualTo(0);
     }
 }
