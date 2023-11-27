@@ -33,6 +33,9 @@ public class ArticleController {
 
     @GetMapping("/detail/{id}")
     String showDetail(Model model, @PathVariable long id) {
+        // TODO 삭제
+        if (true) throw new RuntimeException("예외 발생");
+
         Article article = articleService.findById(id).get();
 
         model.addAttribute("article", article);
