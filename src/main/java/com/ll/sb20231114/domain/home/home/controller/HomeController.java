@@ -38,4 +38,10 @@ public class HomeController {
     public String showTest1() {
         return Thread.currentThread().getName();
     }
+
+    @GetMapping("/home/test2")
+    @ResponseBody
+    public String showTest2(String name) {
+        return name + "님 안녕하세요하하!!!";
+    }
 }
